@@ -59,6 +59,7 @@ namespace Application.Services
                 Email = registerUser.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = registerUser.Username,
+                EmailConfirmed = false,
                 TwoFactorEnabled = false,
             };
             // var roleCheck = await _roleManager.RoleExistsAsync(registerUser.Role!);
@@ -98,6 +99,17 @@ namespace Application.Services
             var user = await _userManager.FindByNameAsync(loginModel.Username!);
             if (user != null)
             {
+
+                if (!user.EmailConfirmed)
+                {
+                    return new ApiResponseUser<LoginOtpResponse>
+                    {
+                        IsSuccess = false,
+                        StatusCode = 404,
+                        Message = $"User doesnot exist."
+                    };
+                }
+                
                 await _signInManager.SignOutAsync();
                 await _signInManager.PasswordSignInAsync(user, loginModel.Password!, false, true);
                 if (user.TwoFactorEnabled)

@@ -1,6 +1,8 @@
 using System.Text;
+using Application.DTOs;
 using Application.Interfaces;
 using Application.Services;
+using Application.Services.Services;
 using Domain.Entities;
 using Domain.Interfaces;
 using Infrastructure.Data;
@@ -12,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var configuration = builder.Configuration;
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -19,6 +23,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserManagementService, UserManagementService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -33,6 +38,9 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.Configure<IdentityOptions>(
+    opts => opts.SignIn.RequireConfirmedEmail = true
+    );
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opts => opts.TokenLifespan = TimeSpan.FromHours(10));
 // Adding Authentication
@@ -55,6 +63,15 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add Authorization without a restrictive default policy
+builder.Services.AddAuthorization();
+
+//Add Email Configs
+var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+if (emailConfig != null)
+{
+    builder.Services.AddSingleton(emailConfig);
+}
 
 var app = builder.Build();
 

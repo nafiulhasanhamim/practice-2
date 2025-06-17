@@ -126,3 +126,9 @@ E:\FullStack\bs preparation\practice-2\practice-2\obj\Debug\net8.0\refint\practi
 E:\FullStack\bs preparation\practice-2\practice-2\obj\Debug\net8.0\practice-2.pdb
 E:\FullStack\bs preparation\practice-2\practice-2\obj\Debug\net8.0\practice-2.genruntimeconfig.cache
 E:\FullStack\bs preparation\practice-2\practice-2\obj\Debug\net8.0\ref\practice-2.dll
+E:\FullStack\bs preparation\practice-2\practice-2\bin\Debug\net8.0\MailKit.dll
+E:\FullStack\bs preparation\practice-2\practice-2\bin\Debug\net8.0\MimeKit.dll
+E:\FullStack\bs preparation\practice-2\practice-2\bin\Debug\net8.0\NETCore.MailKit.dll
+E:\FullStack\bs preparation\practice-2\practice-2\bin\Debug\net8.0\Newtonsoft.Json.dll
+E:\FullStack\bs preparation\practice-2\practice-2\bin\Debug\net8.0\BouncyCastle.Crypto.dll
+E:\FullStack\bs preparation\practice-2\practice-2\obj\Debug\net8.0\practice-2.sourcelink.json
